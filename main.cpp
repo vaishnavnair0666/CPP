@@ -1,14 +1,15 @@
 #include <iostream>
-int max(int a, int b) {
-  if (a > b) {
-    return a;
-  }
-  return b;
+void swap(int &a, int &b) {
+  int temp{};
+  temp = b;
+  b = a;
+  a = temp;
 }
 int main() {
 
   int a{}, b{};
   std::cin >> a >> b;
-  std::cout << max(a, b) << "\n";
+  swap(a, b);
+  std::cout << "a:" << a << "b:" << b << "\n";
   return 0;
 }
