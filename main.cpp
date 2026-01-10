@@ -1,9 +1,10 @@
+#include <cstddef>
 #include <iostream>
 #include <string>
 
 void print(const std::string &s) {
-  for (char c : s) {
-    std::cout << c << " ";
+  for (std::size_t i{0}; i < s.size(); ++i) {
+    std::cout << s.at(s.size() - 1 - i) << " ";
   }
   std::cout << "\n";
 }
