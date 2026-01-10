@@ -1,17 +1,14 @@
 #include <iostream>
-
+int max(int a, int b) {
+  if (a > b) {
+    return a;
+  }
+  return b;
+}
 int main() {
 
-  int a{}, b{}, c{};
-  std::cin >> a >> b >> c;
-  if (a > b) {
-    if (a > c) {
-      std::cout << "a is largest\n";
-    }
-  } else if (b > c) {
-    std::cout << "b is largest\n";
-  } else {
-    std::cout << "c is largest\n";
-  }
+  int a{}, b{};
+  std::cin >> a >> b;
+  std::cout << max(a, b) << "\n";
   return 0;
 }
