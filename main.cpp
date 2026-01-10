@@ -9,14 +9,7 @@ void print(const std::vector<int> &v) {
   std::cout << "\n";
 }
 
-void reverse_manual(std::vector<int> &v) {
-  size_t n = v.size();
-  for (size_t i = 0; i < n / 2; ++i) {
-    std::swap(v[i], v[n - 1 - i]);
-  }
-}
-
-std::vector<int> reversed(const std::vector<int> &v) {
+std::vector<int> reversed_manual(const std::vector<int> &v) {
   std::vector<int> result;
   result.reserve(v.size());
 
@@ -26,46 +19,29 @@ std::vector<int> reversed(const std::vector<int> &v) {
 
   return result;
 }
-void reverse_stl(std::vector<int> &v) { std::reverse(v.begin(), v.end()); }
 
-int max_element(const std::vector<int> &v) {
-  int max = v[0];
-  for (size_t i = 1; i < v.size(); ++i) {
-    if (v[i] > max) {
-      max = v[i];
-    }
-  }
-  return max;
+std::vector<int> reversed_stl(const std::vector<int> &v) {
+  std::vector<int> result = v;
+  std::reverse(result.begin(), result.end());
+  return result;
 }
 
 int main() {
-  int n;
-  std::cout << "Enter number of elements: ";
-  std::cin >> n;
+  std::vector<int> original{1, 2, 3, 4, 5};
 
-  std::vector<int> v;
-  v.reserve(n);
+  std::cout << "Original vector:\n";
+  print(original);
 
-  std::cout << "Enter elements:\n";
-  for (int i = 0; i < n; ++i) {
-    int x;
-    std::cin >> x;
-    v.push_back(x);
-  }
+  std::vector<int> r1 = reversed_manual(original);
+  std::cout << "\nReversed (manual):\n";
+  print(r1);
 
-  std::cout << "\nOriginal vector:\n";
-  print(v);
+  std::vector<int> r2 = reversed_stl(original);
+  std::cout << "\nReversed (STL):\n";
+  print(r2);
 
-  std::cout << "\nMax element: ";
-  std::cout << max_element(v) << "\n";
-  std::vector<int> r = reversed(v);
-  // reverse_manual(v);
-  std::cout << "\nAfter manual reverse:\n";
-  print(v);
-
-  reverse_stl(v);
-  std::cout << "\nAfter STL reverse:\n";
-  print(v);
+  std::cout << "\nOriginal still unchanged:\n";
+  print(original);
 
   return 0;
 }
