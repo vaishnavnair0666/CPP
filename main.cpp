@@ -2,12 +2,16 @@
 
 int main() {
 
-  int x{};
-  std::cin >> x;
-  if (x % 2 == 0) {
-    std::cout << "even\n";
+  int a{}, b{}, c{};
+  std::cin >> a >> b >> c;
+  if (a > b) {
+    if (a > c) {
+      std::cout << "a is largest\n";
+    }
+  } else if (b > c) {
+    std::cout << "b is largest\n";
   } else {
-    std::cout << "odd\n";
+    std::cout << "c is largest\n";
   }
   return 0;
 }
