@@ -1,39 +1,71 @@
+#include <algorithm>
 #include <iostream>
-#include <utility>
+#include <vector>
 
-void print(const int *arr, size_t size) {
-  for (size_t i{0}; i < size; ++i) {
-    std::cout << arr[i] << " ";
+void print(const std::vector<int> &v) {
+  for (int x : v) {
+    std::cout << x << " ";
+  }
+  std::cout << "\n";
+}
+
+void reverse_manual(std::vector<int> &v) {
+  size_t n = v.size();
+  for (size_t i = 0; i < n / 2; ++i) {
+    std::swap(v[i], v[n - 1 - i]);
   }
 }
 
-void rev(const int *arr, size_t size, int *b) {
-  for (size_t i{0}; i < size; ++i) {
-    b[i] = arr[size - 1 - i];
-  }
-}
+std::vector<int> reversed(const std::vector<int> &v) {
+  std::vector<int> result;
+  result.reserve(v.size());
 
-void revswap(int *arr, size_t size) {
-  for (size_t i{0}; i < size / 2; ++i) {
-    std::swap(arr[i], arr[size - 1 - i]);
+  for (size_t i{0}; i < v.size(); ++i) {
+    result.push_back(v[v.size() - 1 - i]);
   }
+
+  return result;
+}
+void reverse_stl(std::vector<int> &v) { std::reverse(v.begin(), v.end()); }
+
+int max_element(const std::vector<int> &v) {
+  int max = v[0];
+  for (size_t i = 1; i < v.size(); ++i) {
+    if (v[i] > max) {
+      max = v[i];
+    }
+  }
+  return max;
 }
 
 int main() {
-  int a[4] = {1, 2, 3, 4};
-  int b[4];
+  int n;
+  std::cout << "Enter number of elements: ";
+  std::cin >> n;
 
-  std::cout << "arr a = ";
-  print(a, 4);
+  std::vector<int> v;
+  v.reserve(n);
 
-  std::cout << "\narr b which is rev a = ";
-  rev(a, 4, b);
-  print(b, 4);
+  std::cout << "Enter elements:\n";
+  for (int i = 0; i < n; ++i) {
+    int x;
+    std::cin >> x;
+    v.push_back(x);
+  }
 
-  revswap(a, 4);
-  std::cout << "\narr a which is rev w/o b = ";
-  print(a, 4);
+  std::cout << "\nOriginal vector:\n";
+  print(v);
 
-  std::cout << "\n";
+  std::cout << "\nMax element: ";
+  std::cout << max_element(v) << "\n";
+  std::vector<int> r = reversed(v);
+  // reverse_manual(v);
+  std::cout << "\nAfter manual reverse:\n";
+  print(v);
+
+  reverse_stl(v);
+  std::cout << "\nAfter STL reverse:\n";
+  print(v);
+
   return 0;
 }
