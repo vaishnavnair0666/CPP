@@ -1,28 +1,18 @@
-#include <algorithm>
+#include <cstddef>
 #include <iostream>
+#include <ostream>
 #include <vector>
 
-int longestSubarray(const std::vector<int> &nums, int K) {
-  int left = 0;
-  int sum = 0;
-  int maxLen = 0;
-  int s = nums.size();
-  for (int right = 0; right < s; ++right) {
-    sum += nums[right];
-
-    while (sum > K) {
-      sum -= nums[left];
-      ++left;
-    }
-
-    maxLen = std::max(maxLen, 1 + right - left);
-  }
-
-  return maxLen;
-}
-
 int main() {
-  std::vector<int> v{13, 2, 5, 7, 3, 4, 2, 1, 1};
-  int k{13};
-  std::cout << longestSubarray(v, k) << "\n";
+  std::vector<int> nums{2, 4, 1, 3};
+  std::vector<int> prefix(nums.size() + 1, 0);
+
+  for (size_t i = 0; i < nums.size(); ++i) {
+    prefix[i + 1] = prefix[i] + nums[i];
+    std::cout << prefix[i + 1] << "\n";
+  }
+  int a{}, b{};
+  std::cin >> a >> b;
+  std::cout << prefix[a] - prefix[b] << "\n";
+  return 0;
 }
