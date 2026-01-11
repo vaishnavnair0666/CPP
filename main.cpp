@@ -1,27 +1,26 @@
+#include <algorithm>
 #include <cstddef>
 #include <iostream>
-#include <unordered_map>
 #include <vector>
 
-int main() {
-  std::vector<int> nums{2, 2, 2, 2, 11, 7, 15};
-  int target = 9;
-  std::unordered_map<int, int> seen;
+int maxSubarraySum(const std::vector<int> &nums, size_t k) {
+  int windowSum = 0;
+  int maxSum = 0;
 
   for (size_t i = 0; i < nums.size(); ++i) {
-    int needed = target - nums[i];
+    windowSum += nums[i];
 
-    if (seen.count(needed)) {
-      std::cout << "Found pair at indices: " << seen[needed] << " and " << i
-                << "\n";
-      std::cout << "Values: " << needed << " + " << nums[i] << " = " << target
-                << "\n";
-      return 0;
+    if (i >= k - 1) {
+      maxSum = std::max(maxSum, windowSum);
+      windowSum -= nums[i - (k - 1)];
     }
-
-    seen[nums[i]] = i;
   }
 
-  std::cout << "No pair found\n";
-  return 0;
+  return maxSum;
+}
+
+int main() {
+  std::vector<int> v{1, 2, 5, 7, 3, 4, 2, 1, 1};
+  size_t k{3};
+  std::cout << maxSubarraySum(v, k) << "\n";
 }
