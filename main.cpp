@@ -1,22 +1,27 @@
-#include <algorithm>
+#include <cstddef>
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 int main() {
-  std::vector<int> v{1, 2, 3, 4, 3, 5};
+  std::vector<int> nums{2, 2, 2, 2, 11, 7, 15};
+  int target = 9;
+  std::unordered_map<int, int> seen;
 
-  std::sort(v.begin(), v.end());
+  for (size_t i = 0; i < nums.size(); ++i) {
+    int needed = target - nums[i];
 
-  v.erase(std::remove(v.begin(), v.end(), 3), v.end());
-  std::cout << "after erase";
-  for (const auto &x : v) {
-    std::cout << x << " ";
+    if (seen.count(needed)) {
+      std::cout << "Found pair at indices: " << seen[needed] << " and " << i
+                << "\n";
+      std::cout << "Values: " << needed << " + " << nums[i] << " = " << target
+                << "\n";
+      return 0;
+    }
+
+    seen[nums[i]] = i;
   }
 
-  auto it = std::find(v.begin(), v.end(), 4);
-  if (it != v.end()) {
-    std::cout << "\nFound " << *it << "\n";
-  }
-
+  std::cout << "No pair found\n";
   return 0;
 }
